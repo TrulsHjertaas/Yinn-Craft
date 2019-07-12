@@ -1,0 +1,213 @@
+{% extends 'layout/layout.twig' %}
+{% block mainContent %}
+
+
+    {% set assets = entry.image %}
+    <main class="main-container-selected-car">
+        <article class="headliner">
+            <h1> {{ entry }} </h1>
+        </article>
+
+        <section class="image-container">
+            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for asset in entry.image.all() %}
+                    {% if loop.first %}
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src=" ../{{ asset.filename() }}" alt='{{ entry }}'>
+                        </div>
+                    {% else %}
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src=" ../{{ asset.filename() }}" alt='{{ entry }}'>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            </div>
+
+        </section>
+
+        <!-- Button trigger modal -->
+        <div class="button-container">
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+                Contact
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Contact {{ entry.currentOwner }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Here comes the contact form -->
+
+                {% macro errorList(errors) %}
+                    {% if errors %}
+                        <ul class="errors">
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endmacro %}
+
+                {% from _self import errorList %}
+
+                <form method="post" action="" accept-charset="UTF-8">
+                    {{ csrfInput() }}
+                    <input type="hidden" name="action" value="contact-form/send">
+                    {{ redirectInput('http://craftquest.blue/index.twig') }}
+
+                    <h6><label for="from-name">Name</label></h6>
+                    <input id="from-name" type="text" name="fromName" value="{{ message.fromName ?? '' }}">
+                    {{ message is defined and message ? errorList(message.getErrors('fromName')) }}
+
+                    <h6><label for="from-email">Email</label></h6>
+                    <input id="from-email" type="email" name="fromEmail" value="{{ message.fromEmail ?? '' }}">
+                    {{ message is defined and message ? errorList(message.getErrors('fromEmail')) }}
+
+                    <h6><label for="message">Message</label></h6>
+                    <textarea rows="10" cols="40" id="message" name="message">{{ message.message ?? '' }}</textarea>
+                    {{ message is defined and message ? errorList(message.getErrors('message')) }}
+
+                    <!-- <input type="submit" value="Send"> -->
+                    </br>
+                    <input type="submit" class="btn btn-primary" data-toggle="model-message" data-target="#messageModel"></input>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Modal for displaying flash message from Craft after submitting the form -->
+
+        <!-- Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="messageModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% if craft.app.session.hasFlash('notice') %}
+                    <p class="message notice">{{ craft.app.session.getFlash('notice') }}</p>
+                {% elseif craft.app.session.hasFlash('error') %}
+                    <p class="message error">{{ craft.app.session.getFlash('error') }}</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        
+        <!-- Table for displaying FieldsTypes from Craft -->
+
+        <section class="container">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="table-left-content">Brand: </td>
+                        <td class="table-right-content"> {{entry.brand}} </td>
+                    </tr>
+                    <tr>
+                        <td class="table-left-content">Price: </td>
+                        <td class="table-right-content"> {{entry.price}} kr</td>
+                    </tr>
+                    <tr>
+                        <td class="table-left-content">Year: </td>
+                        <td class="table-right-content"> {{entry.year}} </td>
+                    </tr>
+                    <tr>
+                        <td class="table-left-content">Milage: </td>
+                        <td class="table-right-content"> {{entry.milage}} km</td>
+                    </tr>
+                    <tr>
+                        <td class="table-left-content">Horsepower: </td>
+                        <td class="table-right-content"> {{entry.horsepower}} hp</td>
+                    </tr>
+                    <tr>
+                        <td class="table-left-content">Displacement: </td>
+                        <td class="table-right-content"> {{entry.cylinderVolume}} l</td>
+                    </tr>
+                    <tr>
+                        <td class="table-left-content">color: </td>
+                        <td class="table-right-content"> {{entry.color}} </td>
+                    </tr>
+                    <tr>
+                        <td class="table-left-content">Weight: </td>
+                        <td class="table-right-content"> {{entry.weight}} kg</td>
+                    </tr>
+                    <tr>
+                        <td class="table-left-content">Owner: </td>
+                        <td class="table-right-content"> {{entry.currentOwner}} </td>
+                    </tr>
+                    <tr>
+                        <td class="table-left-content">Location: </td>
+                        <td class="table-right-content"> {{entry.mapLocation.address}} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Google Maps implementation -->
+
+        <section class="map-container">
+            <div id="map" style="height: 400px;"></div>
+            <script>
+            var map;
+            function initMap() {
+                // Display the map
+                map = new google.maps.Map(document.getElementById("map"), {
+                center: {
+                    lat: {{ entry.mapLocation.lat }},
+                    lng: {{ entry.mapLocation.lng }}
+                },
+                zoom: {{ entry.mapLocation.zoom }}
+                });
+                
+                // Display the marker
+                var marker = new google.maps.Marker({
+                position: {
+                    lat: {{ entry.mapLocation.lat }},
+                    lng: {{ entry.mapLocation.lng }}
+                },
+                // A custom icon can be defined here, if desired
+                // icon: '/path/to/custom/icon.png',
+                map: map
+                });
+            }
+            </script>
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8D4k_LOWUMdzQIQmjmWLrW1ApoquLUtU&callback=initMap"
+            type="text/javascript"></script>
+        </section>
+
+        <article class="description-container" >
+            <div class="text-holder">
+                {{entry.information}}
+            </div>
+        </article>
+        
+    </main>
+
+{% endblock %} 

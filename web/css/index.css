@@ -1,0 +1,172 @@
+/* Variables */
+
+:root {
+    --main-width: 50vw;
+}
+
+.navbar-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.fa-user {
+    color: white;
+    font-size: 2.2em;
+}
+
+.headliner {
+    width: var(--main-width);
+    text-align: center;
+}
+
+.main-container {
+    width: 68vw;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+}
+
+.card {
+    width: 20em;
+    height: 20em;
+    margin-top: 2em;
+}
+
+.hide {
+    display: none;
+}
+
+h4 a {
+    text-decoration: none;
+    color: black;
+
+}
+
+h4 a:hover {
+    text-decoration: none;
+    color: grey;
+
+}
+
+/* addCar page */
+
+.main-container-selected-car {
+    width: 68vw;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+}
+
+.main-container-selected-car h1 {
+    margin-top: 1em;
+}
+
+.image-container {
+    width: var(--main-width);
+    margin-top: 2em;
+    height: auto;
+    overflow: hidden;
+}
+
+img {
+    max-width: var(--main-width);
+    height: auto;
+}
+
+.button-container {
+    width: var(--main-width);
+    height: 3em;
+    margin-top: 2em;
+}
+
+.button-container button {
+    width: auto;
+    height: 3em;;
+    margin-left: 0;
+}
+
+.container {
+    margin: 0 auto;
+    margin-top: 2em;
+    width: var(--main-width);
+    padding: 0;
+}
+
+table {
+    width: var(--main-width);
+    margin: 0 auto;
+    /*margin-top: 2em;*/
+    line-height: 2em;
+}
+
+.table-left-content {
+    font-weight: 600;
+}
+
+.table-right-content {
+    text-align: right;
+}
+
+.map-container {
+    width: var(--main-width);
+    height: auto;
+    margin: 0 auto;
+    margin-top: 2em;
+}
+
+.description-container {
+    width: var(--main-width);
+    height: auto;
+    margin-top: 2em;
+}
+
+.text-holder {
+    text-align: center;
+    margin: 0;
+}
+
+/* Search */
+
+.search-container {
+    width: var(--main-width);
+    height: auto;
+    margin: 0 auto;
+    margin-top: 2em;
+}
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 0.1em solid #00B4CC;
+    border-right: none;
+    padding: 0.2em;
+    height: 2em;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+  }
+  
+  .searchButton {
+    width: 4em;
+    height: 2em;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 1em;
+  }

@@ -1,0 +1,41 @@
+{% extends 'layout/layout.twig' %}
+
+{% block mainContent %}
+
+    <!-- The search field -->
+
+    <section class="search-container">
+        <div class="search">
+            <input type="text" id="search-value" class="searchTerm" placeholder=" . . .">
+            <button type="submit" class="searchButton" onclick="userInput()">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </section>
+
+    {% set entries = craft.entries.all() %}
+    <main class="main-container">
+
+    {% for entry in entries %}
+
+        {% set carMake =  entry %}
+        {% set carBrand = entry.brand %}
+        {% set carPrice = entry.price %}
+        {% set image = entry.image.one() %}
+            <div class="card {{entry.brand}}">
+                <img src="{{ image.filename }}" class="card-img-top" alt=" {{entry}} ">
+                <div class="card-body">
+                    <h4> 
+                        <a href="main/{{entry.slug}}"> {{ entry }} </a> 
+                    </h4>
+                    <span> Price: {{entry.price}} kr</span> <br>
+                    <span> Year: {{entry.year}} </span>
+                </div>
+            </div>
+
+    {% endfor %}
+
+    <script type="text/javascript" src="http://craftquest.blue/js/search.js"></script>
+    </main>
+
+{% endblock %} 
