@@ -170,3 +170,8 @@ table {
     cursor: pointer;
     font-size: 1em;
   }
+
+  .videoContainer {
+      width: var(--main-width);
+      height: auto;
+  }

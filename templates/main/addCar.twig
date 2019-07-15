@@ -207,6 +207,17 @@
                 {{entry.information}}
             </div>
         </article>
+
+            <!-- Video Embeder -->
+            {% set videoURL = entry.video %}
+            {% if videoURL | length %}
+                <section class="videoContainer">
+                    <div class="embed-responsive embed-responsive--mb-l embed-responsive-16by9">
+                        <iframe src="{{ videoURL }}" width="100%" height="600" frameborder="0" 
+                        webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+                </section>
+            {% endif %}
         
     </main>
 
