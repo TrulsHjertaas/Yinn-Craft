@@ -1,11 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="http://craftquest.blue/css/about.css">
         <title>About</title>
     </head>
     <body>
-        <main>
-            <h1> Somehow it works </h1>
+    {% for entry in craft.entries
+        .section("about")
+        .limit(10)
+        .all()
+    %}
+        {% set asset = entry.wideImage.first() %}
+        <section class="imageContainer">
+            <img src="..//{{ asset.filename }}" alt="image" />
+        </section>
+
+    
+        <main class="mainContainer">
+
+            <article class="headlineContainer">
+                <h1>About</h1>
+            </article>
+            
+            <div class="contact">
+                <h2>Contact</h2>
+                <section class="contactContainer">
+                    <div class="contactInformation">
+                        <div class="info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="table-left-content">Street: </td>
+                                        <td class="table-right-content"> {{ entry.location.parts.address }} {{ entry.location.parts.number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-left-content">City: </td>
+                                        <td class="table-right-content"> {{ entry.location.parts.city }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-left-content">Country: </td>
+                                        <td class="table-right-content"> {{ entry.location.parts.country }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-left-content">Mail: </td>
+                                        <td class="table-right-content"> {{ entry.mail }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-left-content">Phone: </td>
+                                        <td class="table-right-content"> {{ entry.phone }} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mapContainer">
+                            <div id="map"></div>
+                                <script>
+                                var map;
+                                function initMap() {
+                                    // Display the map
+                                    map = new google.maps.Map(document.getElementById("map"), {
+                                    center: {
+                                        lat: {{ entry.location.lat }},
+                                        lng: {{ entry.location.lng }}
+                                    },
+                                    zoom: {{ entry.location.zoom }}
+                                    });
+                                    
+                                    // Display the marker
+                                    var marker = new google.maps.Marker({
+                                    position: {
+                                        lat: {{ entry.location.lat }},
+                                        lng: {{ entry.location.lng }}
+                                    },
+                                    // A custom icon can be defined here, if desired
+                                    // icon: '/path/to/custom/icon.png',
+                                    map: map
+                                    });
+                                }
+                                </script>
+                                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8D4k_LOWUMdzQIQmjmWLrW1ApoquLUtU&callback=initMap"
+                                type="text/javascript"></script>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <section class="visionContainer">
+                <h2>Vision</h2>
+                <div class="visionBlock">
+                    <article class="vision">
+                        {{ entry.vision }}
+                    </article>
+                </div>
+            </section>
+
         </main>
+        {% endfor %}
     </body>
 </html>

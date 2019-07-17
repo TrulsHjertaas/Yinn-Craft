@@ -3,7 +3,6 @@
 {% block mainContent %}
 
     <!-- The search field -->
-
     <section class="search-container">
         <div class="search">
             <input type="text" id="search-value" class="searchTerm" placeholder="">
@@ -13,11 +12,10 @@
         </div>
     </section>
 
-    {% set entries = craft.entries.all() %}
+    <!-- Display al the cars in this section as cards -->
     <main class="main-container">
 
-    {% for entry in entries %}
-    
+    {% for entry in craft.entries.section("displayAllCars").all()%}
         {% set carMake =  entry %}
         {% set carBrand = entry.brand %}
         {% set carPrice = entry.price %}
@@ -32,7 +30,6 @@
                     <span> Year: {{entry.year}} </span>
                 </div>
             </div>
-
     {% endfor %}
 
     <script type="text/javascript" src="http://craftquest.blue/js/search.js"></script>
