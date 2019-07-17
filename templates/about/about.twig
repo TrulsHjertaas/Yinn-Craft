@@ -12,7 +12,7 @@
         .limit(10)
         .all()
     %}
-        {% set asset = entry.wideImage.first() %}
+        {% set asset = entry.wideImage.one() %}
         <section class="imageContainer">
             <img src="..//{{ asset.filename }}" alt="image" />
         </section>
